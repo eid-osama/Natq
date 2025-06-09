@@ -1,0 +1,26 @@
+@import "tailwindcss";
+.conic-gradient {
+  background: conic-gradient(
+    from 180deg,
+    #602c40 0%,
+    #683345 13%,
+    #442d4a 25%,
+    #22254f 38%,
+    #212652 50%,
+    #1e254f 63%,
+    #3d2847 75%,
+    #5f2b3f 88%,
+    #602d40 100%
+  );
+}
+
+.btn-gradient {
+  background: linear-gradient(
+    to right,
+    #6327a3 0%,
+    #552ca4 25%,
+    #4532a5 50%,
+    #3539a7 75%,
+    #293ea9 100%
+  );
+}

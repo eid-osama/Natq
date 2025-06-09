@@ -192,3 +192,59 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+
+
+# === Model and Vocoder Checkpoints (FastPitch, FastSpeech2, HiFi-GAN, etc.) ===
+
+# Common ML checkpoint formats
+*.ckpt
+*.ckpt.zip
+*.pth
+*.pth.tar
+*.pt
+*.tar
+*.npz
+*.npy
+*.h5
+*.joblib
+*.pb
+*.onnx
+
+# FastPitch & FastSpeech2 checkpoint naming patterns
+FastPitch--val_loss=*
+FastSpeech2--val_loss=*
+g_*
+do_*
+generator_*
+discriminator_*
+checkpoint_*
+model_*
+
+# HiFi-GAN checkpoints and configs
+HifiGan--*
+hifigan/
+hifigan_*/
+hifigan-*/
+hifigan*.pth
+hifigan*.tar
+hifigan*.ckpt
+hifigan*.json
+
+# Ignore any output audio files
+*.wav
+*.mp3
+*.flac
+
+# Ignore sample outputs
+sample.wav
+output.wav
+
+# Ignore any logs or tensorboard runs
+runs/
+logs/
+*.tfevents.*
+
+# (Optional) Ignore large data folders if you have them
+data/
+datasets/
