@@ -100,78 +100,61 @@ The system pipeline is composed of:
 
 <h1 align="center">وَالسَّلَامُ عَلَى أَشْرَفِ الْأَنْبِيَاءِ وَالْمُرْسَلِينَ سَيِّدِنَا مُحَمَّدٍ</h1>
 <html>
-  <table align="center">
-    <thead>
-      <tr>
-        <th>Model</th>
-        <th>Dataset</th>
-        <th>Sample</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>FastPitch</td>
-        <td>ClArTTS</td>
-        <td>
-          <audio controls>
-            <source src="Media/audio_samples/FastPitch-TTS_MOS/walsalam_fp.wav" type="audio/wav">
-            Your browser does not support the audio element.
-          </audio>
-        </td>
-      </tr>
-      <tr>
-        <td>Mixer-TTS</td>
-        <td>ASC</td>
-        <td>
-          <audio controls>
-            <source src="Media/audio_samples/Mixer-TTS_MOS/walsalam_mx.wav" type="audio/wav">
-            Your browser does not support the audio element.
-          </audio>
-        </td>
-      </tr>
-      <tr>
-        <td>Spark-TTS</td>
-        <td>ClArTTS</td>
-        <td>
-          <audio controls>
-            <source src="Media/audio_samples/Spark-TTS_MOS/salam_spark.wav" type="audio/wav">
-            Your browser does not support the audio element.
-          </audio>
-        </td>
-      </tr>
-      <tr>
-        <td>VITS_facebook</td>
-        <td>—</td>
-        <td>
-          <audio controls>
-            <source src="Media/audio_samples/speech_VITS_facebook_output.wav" type="audio/wav">
-            Your browser does not support the audio element.
-          </audio>
-        </td>
-      </tr>
-      <tr>
-        <td>T5_MBZUAI</td>
-        <td>—</td>
-        <td>
-          <audio controls>
-            <source src="Media/audio_samples/speech_T5_MBZUAI_output.wav" type="audio/wav">
-            Your browser does not support the audio element.
-          </audio>
-        </td>
-      </tr>
-      <tr>
-        <td>FastSpeech2</td>
-        <td>—</td>
-        <td>
-          <audio controls>
-            <source src="audio_samples/hifigan_sample.wav" type="audio/wav">
-            Your browser does not support the audio element.
-          </audio>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</html>
+<table align="center">
+
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Dataset</th>
+      <th>Sample</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FastPitch</td>
+      <td>ClArTTS</td>
+      <td>
+        <a href="Media/audio_samples/FastPitch-TTS_MOS/walsalam_fp.wav">▶️ Listen</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Mixer-TTS</td>
+      <td>ASC</td>
+      <td>
+        <a href="Media/audio_samples/Mixer-TTS_MOS/walsalam_mx.wav">▶️ Listen</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Spark-TTS</td>
+      <td>ClArTTS</td>
+      <td>
+        <a href="Media/audio_samples/Spark-TTS_MOS/salam_spark.wav">▶️ Listen</a>
+      </td>
+    </tr>
+    <tr>
+      <td>VITS_facebook</td>
+      <td>—</td>
+      <td>
+        <a href="Media/audio_samples/speech_VITS_facebook_output.wav">▶️ Listen</a>
+      </td>
+    </tr>
+    <tr>
+      <td>T5_MBZUAI</td>
+      <td>—</td>
+      <td>
+        <a href="Media/audio_samples/speech_T5_MBZUAI_output.wav">▶️ Listen</a>
+      </td>
+    </tr>
+    <tr>
+      <td>FastSpeech2</td>
+      <td>—</td>
+      <td>
+        <a href="audio_samples/hifigan_sample.wav">▶️ Listen</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ---
 
 ## 👥 Contributors
