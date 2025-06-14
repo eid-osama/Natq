@@ -16,11 +16,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/synthesize/fastpitch")
+@app.post("/synthesize")
 async def synthesize(request: Request):
     data = await request.json()
-    text = data["text"]
-    audio = fastpitch_infer_plain_arabic(text)
+    text = data.get("text")
+    model_type = data.get("model_type", "fastpitch").lower()  # default to fastpitch 
+
+    try:
+        audio = fastpitch_infer_plain_arabic(text, model_type)
+    except Exception as e:
+        return {"error": f"Inference failed: {str(e)}"}
+
     buf = io.BytesIO()
     sf.write(buf, audio, 22050, format='WAV')
     buf.seek(0)

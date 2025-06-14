@@ -1,6 +1,10 @@
 import { useState } from "react";
 import "tailwindcss";
 
+// uvicorn spark_server:app --host 0.0.0.0 --port 8002 --reload
+// uvicorn fastpitch_server:app --host 0.0.0.0 --port 8001 --reload
+// uvicorn fastspeech2_server:app --host 0.0.0.0 --port 8000 --reload
+
 function App() {
   const [text, setText] = useState("");
   const [model, setModel] = useState("fastpitch");
@@ -14,29 +18,45 @@ function App() {
 
     let endpoint = "";
     if (model === "fastpitch") {
-      endpoint = "http://localhost:8001/synthesize/fastpitch";
+      endpoint = "http://localhost:8001/synthesize";
+    } else if (model === "mixter") {
+      endpoint = "http://localhost:8001/synthesize";
     } else if (model === "fastspeech2") {
       endpoint = "http://localhost:8000/synthesize/fastspeech2";
+    } else if (model === "spark") {
+      endpoint = "http://localhost:8002/synthesize/spark";
     }
 
-    try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, model }),
-      });
+    const fetchAudio = async () => {
+      while (true) {
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text, model }),
+          });
 
-      if (response.ok) {
-        const blob = await response.blob();
-        setAudioUrl(URL.createObjectURL(blob));
-      } else {
-        alert("Error generating audio");
+          if (response.ok) {
+            const blob = await response.blob();
+            setAudioUrl(URL.createObjectURL(blob));
+            break;
+          } else if (response.status === 500) {
+            console.warn("Server error 500. Retrying...");
+            continue;
+          } else {
+            alert("Error generating audio");
+            break;
+          }
+        } catch (err) {
+          console.error(err);
+          alert("Failed to connect to the server.");
+          break;
+        }
       }
-    } catch (err) {
-      console.error(err);
-      alert("Failed to connect to the server.");
-    }
-    setLoading(false);
+      setLoading(false);
+    };
+
+    await fetchAudio();
   };
 
   return (
@@ -72,7 +92,9 @@ function App() {
                 onChange={(e) => setModel(e.target.value)}
               >
                 <option value="fastpitch">FastPitch</option>
+                <option value="mixter">Mixter</option>
                 <option value="fastspeech2">FastSpeech2</option>
+                <option value="spark">spark</option>
               </select>
               <div className="h-[80px] mb-[20px] pt-[15px]">
                 {audioUrl && <audio controls src={audioUrl} />}
@@ -82,7 +104,7 @@ function App() {
                 className="btn-gradient max-w-[560px] w-full h-[50px] rounded-[15px] cursor-pointer"
                 disabled={loading}
               >
-                {loading ? "Loading.." : "convert⚡"}
+                {loading ? "Loading...." : "convert⚡"}
               </button>
             </form>
           </div>
