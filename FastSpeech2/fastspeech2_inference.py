@@ -9,11 +9,16 @@ from FastSpeech2.text import text_to_sequence
 import argparse
 sys.path.append('FastSpeech2')
 import custom_arabic_to_phones
+import gc
+# sys.path.append('catt')
+from catt.eo_pl import TashkeelModel
+from catt.tashkeel_tokenizer import TashkeelTokenizer
+
 
 # This script is used to perform inference using the FastSpeech2 model for Arabic text-to-speech synthesis.
 def fastspeech2_infer(
     text,
-    restore_step=1500000,
+    restore_step=650000,
     speaker_id=0,
     pitch_control=1.0,
     energy_control=1.0,
@@ -49,11 +54,19 @@ def fastspeech2_infer(
     )
     vocoder = get_vocoder(model_config, device)
 
-    vocalizer = mishkal.tashkeel.TashkeelClass()
-    tashkeel_arabic_text= vocalizer.tashkeel(text)
-    print("Tashkeel Arabic text:", tashkeel_arabic_text)
+    tokenizer = TashkeelTokenizer()
+    ckpt_path = 'catt/models/best_eo_mlm_ns_epoch_193.pt'
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+    tashkeel_model = TashkeelModel(tokenizer, max_seq_len=1024, n_layers=6, learnable_pos_emb=False)
+    tashkeel_model.load_state_dict(torch.load(ckpt_path, map_location=device))
+    tashkeel_model.eval().to(device)
+    arabic_text = [text]
+    arabic_text = tashkeel_model.do_tashkeel_batch(arabic_text, batch_size=16, verbose=False)
+
+    print("Tashkeel Arabic text:", arabic_text)
     # 1. Convert plain Arabic text to phoneme sequence
-    phoneme_seq = custom_arabic_to_phones.custom_arabic_to_phones(tashkeel_arabic_text)
+    phoneme_seq = custom_arabic_to_phones.custom_arabic_to_phones(arabic_text[0])
     print("Phoneme sequence:", phoneme_seq)
     # Join tokens to a space-separated string if needed
     phoneme_str = " ".join(phoneme_seq)
@@ -97,8 +110,11 @@ def fastspeech2_infer(
                 preprocess_config,
                 train_config["path"]["result_path"],
             )
+    torch.cuda.empty_cache()
+    gc.collect()
     return True
 
 # fastspeech2_infer(
-#     text="أريد أن أذهب إلى المدرسة",
+#     text="أهلاً وسهلاً بك في هذا المشروع الرائع",
 # )
+
