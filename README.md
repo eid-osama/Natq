@@ -99,7 +99,8 @@ The system pipeline is composed of:
 ## 🔈 Audio Samples
 
 <h1 align="center">وَالسَّلَامُ عَلَى أَشْرَفِ الْأَنْبِيَاءِ وَالْمُرْسَلِينَ سَيِّدِنَا مُحَمَّدٍ</h1>
-  <table>
+<html>
+  <table align="center">
     <thead>
       <tr>
         <th>Model</th>
@@ -170,7 +171,7 @@ The system pipeline is composed of:
       </tr>
     </tbody>
   </table>
-
+</html>
 ---
 
 ## 👥 Contributors
